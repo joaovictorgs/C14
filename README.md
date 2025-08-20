@@ -44,7 +44,7 @@ node dist
 
 ### 1º conflito dia 18/08
 
-Durante o desenvolvimento, o readme.md foi alterado por outra pessoa enquanto outra também mexia no arquivo.
+Durante o desenvolvimento, o readme.md foi alterado por outra pessoa enquanto outra pessoa também mexia no arquivo.
 
 Esse conflito foi anunciado no vscode, e a sugestão de alteração foi selecionada, pra matér as alterações realizadas pelo usuário joaovictorgs.
 
@@ -52,7 +52,7 @@ Segue a primeira alteração:
 
 <img width="1542" height="293" alt="image" src="https://github.com/user-attachments/assets/731558ce-28a8-4ce0-a551-4186f1f0de3c" />
 
-Segue a segunda alterção:
+Segue a segunda alteração:
 
 <img width="772" height="797" alt="image" src="https://github.com/user-attachments/assets/f6b16c66-e3d0-4700-b2ed-b127fd13a853" />
 
