@@ -1,4 +1,4 @@
-<img width="1553" height="777" alt="image" src="https://github.com/user-attachments/assets/43d653c9-546e-49be-96a8-fcf1f785c196" /># RPG API
+# RPG API
 
 Uma API de RPG construída em **TypeScript**, usando **Fastify** como framework web e **Zod** para validação de dados. Este projeto é ideal para gerenciar personagens, equipamentos, habilidades e missões de um jogo de RPG.
 
@@ -49,8 +49,11 @@ Durante o desenvolvimento, o readme.md foi alterado por outra pessoa enquanto ou
 Esse conflito foi anunciado no vscode, e a sugestão de alteração foi selecionada, pra matér as alterações realizadas pelo usuário joaovictorgs.
 
 Segue a primeira alteração: 
+
 <img width="1542" height="293" alt="image" src="https://github.com/user-attachments/assets/731558ce-28a8-4ce0-a551-4186f1f0de3c" />
+
 Segue a segunda alterção:
+
 <img width="772" height="797" alt="image" src="https://github.com/user-attachments/assets/f6b16c66-e3d0-4700-b2ed-b127fd13a853" />
 
 Foi optado por mantér a segunda alteração, uma vez que ela já incluia todas a informação inicial do outro commit
