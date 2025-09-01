@@ -1,4 +1,4 @@
-export enum Fears {
+export enum Medos {
   TALASSOFOBIA = 'talassofobia',
   ARACNOFOBIA = 'aracnofobia',
   OFIDIOFOBIA = 'ofidiofobia',

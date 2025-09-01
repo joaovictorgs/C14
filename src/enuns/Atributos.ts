@@ -1,4 +1,4 @@
-export enum Atributes {
+export enum Atributos {
   FORCA = 'força',
   DEXTERITY = 'destreza',
   CONSTITUTION = 'constituição',
