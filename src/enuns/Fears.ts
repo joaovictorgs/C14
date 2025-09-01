@@ -1,0 +1,15 @@
+export enum Fears {
+  TALASSOFOBIA = 'talassofobia',
+  ARACNOFOBIA = 'aracnofobia',
+  OFIDIOFOBIA = 'ofidiofobia',
+  ACROFOBIA = 'acrofofia',
+  AGORAFOBIA = 'agorafobia',
+  CLAUSTROFOBIA = 'claustrofobia',
+  AEROFOBIA = 'aerofobia',
+  TRIPOFOBIA = 'tripofobia',
+  MISOFOBIA = 'misofobia',
+  NICTOFOBIA = 'nictofobia',
+  HEMOFOBIA = 'hemofbobia',
+  CINOFOBIA = 'cinofoia',
+  TANATOFOBIA = 'tanatofobia',
+}
