@@ -89,4 +89,85 @@ describe('Personagem', () => {
       expect(personagem.podeUsarHabilidade(0)).toBe(true);
     });
   });
+
+  describe('getStatusInfo', () => {
+    test('should return correct status info for healthy character', () => {
+      const status = personagem.getStatusInfo();
+      expect(status.vidaPercentual).toBe(90);
+      expect(status.manaPercentual).toBe(80);
+      expect(status.sanidadePercentual).toBe(87.5);
+      expect(status.estadoFisico).toBe('Saudável');
+      expect(status.estadoMental).toBe('Estável');
+    });
+
+    test('should return correct status for critically injured character', () => {
+      personagem.receberDanoFisico(75);
+      const status = personagem.getStatusInfo();
+      expect(status.vidaPercentual).toBe(20);
+      expect(status.estadoFisico).toBe('Gravemente Ferido');
+    });
+
+    test('should return correct status for agonizing character', () => {
+      personagem.receberDanoFisico(85);
+      const status = personagem.getStatusInfo();
+      expect(status.vidaPercentual).toBe(10);
+      expect(status.estadoFisico).toBe('Agonizante');
+    });
+
+    test('should return correct status for dead character', () => {
+      personagem.receberDanoFisico(200);
+      const status = personagem.getStatusInfo();
+      expect(status.vidaPercentual).toBe(0);
+      expect(status.estadoFisico).toBe('Morto');
+    });
+
+    test('should return correct status for mentally disturbed character', () => {
+      personagem.receberDanoMental(50);
+      const status = personagem.getStatusInfo();
+      expect(status.sanidadePercentual).toBe(25);
+      expect(status.estadoMental).toBe('Perturbado');
+    });
+
+    test('should return correct status for psychotic character', () => {
+      personagem.receberDanoMental(62);
+      const status = personagem.getStatusInfo();
+      expect(status.sanidadePercentual).toBe(10);
+      expect(status.estadoMental).toBe('Psicótico');
+    });
+
+    test('should return correct status for insane character', () => {
+      personagem.receberDanoMental(100);
+      const status = personagem.getStatusInfo();
+      expect(status.sanidadePercentual).toBe(0);
+      expect(status.estadoMental).toBe('Insano');
+    });
+
+    test('should return correct status for wounded character (26-50% health)', () => {
+      personagem.receberDanoFisico(55);
+      const status = personagem.getStatusInfo();
+      expect(status.vidaPercentual).toBe(40);
+      expect(status.estadoFisico).toBe('Ferido');
+    });
+
+    test('should return correct status for lightly wounded character (51-75% health)', () => {
+      personagem.receberDanoFisico(35);
+      const status = personagem.getStatusInfo();
+      expect(status.vidaPercentual).toBe(60);
+      expect(status.estadoFisico).toBe('Levemente Ferido');
+    });
+
+    test('should return correct status for shaken character (26-50% sanity)', () => {
+      personagem.receberDanoMental(40);
+      const status = personagem.getStatusInfo();
+      expect(status.sanidadePercentual).toBe(37.5);
+      expect(status.estadoMental).toBe('Abalado');
+    });
+
+    test('should return correct status for nervous character (51-75% sanity)', () => {
+      personagem.receberDanoMental(20);
+      const status = personagem.getStatusInfo();
+      expect(status.sanidadePercentual).toBe(62.5);
+      expect(status.estadoMental).toBe('Nervoso');
+    });
+  });
 });
