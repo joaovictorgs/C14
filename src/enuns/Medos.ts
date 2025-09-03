@@ -10,6 +10,6 @@ export enum Medos {
   MISOFOBIA = 'misofobia',
   NICTOFOBIA = 'nictofobia',
   HEMOFOBIA = 'hemofobia',
-  CINOFOBIA = 'cinofoia',
+  CINOFOBIA = 'cinofobia',
   TANATOFOBIA = 'tanatofobia',
 }
