@@ -33,6 +33,37 @@ describe('Personagem', () => {
     };
     personagem = new Personagem(personagemProps);
   });
+  describe('receberDanoMental', () => {
+    test('should apply mental damage normally without specific fear', () => {
+      const danoEfetivo = personagem.receberDanoMental(20);
+      expect(danoEfetivo).toBe(20);
+      expect(personagem.sanidadeAtual).toBe(50);
+    });
+
+    test('should double damage when fear matches character fear', () => {
+      const danoEfetivo = personagem.receberDanoMental(10, Medos.NICTOFOBIA);
+      expect(danoEfetivo).toBe(20);
+      expect(personagem.sanidadeAtual).toBe(50);
+    });
+
+    test('should apply normal damage when fear does not match character fears', () => {
+      const danoEfetivo = personagem.receberDanoMental(15, Medos.ACROFOBIA);
+      expect(danoEfetivo).toBe(15);
+      expect(personagem.sanidadeAtual).toBe(55);
+    });
+
+    test('should not reduce sanity below 0', () => {
+      const danoEfetivo = personagem.receberDanoMental(100);
+      expect(danoEfetivo).toBe(100);
+      expect(personagem.sanidadeAtual).toBe(0);
+    });
+
+    test('should handle zero mental damage', () => {
+      const danoEfetivo = personagem.receberDanoMental(0);
+      expect(danoEfetivo).toBe(0);
+      expect(personagem.sanidadeAtual).toBe(70);
+    });
+  });
   describe('curarVida', () => {
     test('should heal life points', () => {
       personagem.receberDanoFisico(30);
