@@ -65,10 +65,10 @@ describe('Personagem', () => {
       expect(personagem.sanidadeAtual).toBe(50);
     });
 
-    test('should double damage when fear matches character fear', () => {
+    test('should triple damage when fear matches character fear', () => {
       const danoEfetivo = personagem.receberDanoMental(10, Medos.NICTOFOBIA);
-      expect(danoEfetivo).toBe(20);
-      expect(personagem.sanidadeAtual).toBe(50);
+      expect(danoEfetivo).toBe(30);
+      expect(personagem.sanidadeAtual).toBe(40);
     });
 
     test('should apply normal damage when fear does not match character fears', () => {

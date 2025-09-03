@@ -120,25 +120,34 @@ export class Personagem {
     let danoEfetivo = dano;
 
     if (tipoMedo && this.props.medo.includes(tipoMedo)) {
-      danoEfetivo *= 2;
+      danoEfetivo *= 3;
     }
 
-    this.props.sanidadeAtual = Math.max(0, this.props.sanidadeAtual - danoEfetivo);
+    this.props.sanidadeAtual = Math.max(
+      0,
+      this.props.sanidadeAtual - danoEfetivo
+    );
     return danoEfetivo;
   }
 
   curarVida(pontos: number): void {
-    this.props.vidaAtual = Math.min(this.props.vidaMaxima, this.props.vidaAtual + pontos);
+    this.props.vidaAtual = Math.min(
+      this.props.vidaMaxima,
+      this.props.vidaAtual + pontos
+    );
   }
 
   curarMana(pontos: number): void {
-    this.props.manaAtual = Math.min(this.props.manaMaxima, this.props.manaAtual + pontos);
+    this.props.manaAtual = Math.min(
+      this.props.manaMaxima,
+      this.props.manaAtual + pontos
+    );
   }
 
   recuperarSanidade(pontos: number): void {
     this.props.sanidadeAtual = Math.min(
       this.props.sanidadeMaxima,
-      this.props.sanidadeAtual + pontos,
+      this.props.sanidadeAtual + pontos
     );
   }
 
@@ -163,7 +172,11 @@ export class Personagem {
   }
 
   podeUsarHabilidade(custoMana: number): boolean {
-    return this.props.manaAtual >= custoMana && !this.estaMorto() && !this.estaInsano();
+    return (
+      this.props.manaAtual >= custoMana &&
+      !this.estaMorto() &&
+      !this.estaInsano()
+    );
   }
 
   getStatusInfo(): {
@@ -175,7 +188,8 @@ export class Personagem {
   } {
     const vidaPercentual = (this.props.vidaAtual / this.props.vidaMaxima) * 100;
     const manaPercentual = (this.props.manaAtual / this.props.manaMaxima) * 100;
-    const sanidadePercentual = (this.props.sanidadeAtual / this.props.sanidadeMaxima) * 100;
+    const sanidadePercentual =
+      (this.props.sanidadeAtual / this.props.sanidadeMaxima) * 100;
 
     let estadoFisico = 'Saudável';
     if (this.estaMorto()) {
