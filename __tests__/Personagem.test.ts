@@ -33,6 +33,16 @@ describe('Personagem', () => {
     };
     personagem = new Personagem(personagemProps);
   });
+  describe('estaMorto', () => {
+    test('should return false when character has life', () => {
+      expect(personagem.estaMorto()).toBe(false);
+    });
+
+    test('should return true when character has 0 life', () => {
+      personagem.receberDanoFisico(200);
+      expect(personagem.estaMorto()).toBe(true);
+    });
+  });
 
   describe('estaInsano', () => {
     test('should return false when character has sanity', () => {
