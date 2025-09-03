@@ -33,6 +33,31 @@ describe('Personagem', () => {
     };
     personagem = new Personagem(personagemProps);
   });
+  describe('receberDanoFisico', () => {
+    test('should apply damage reduced by armor', () => {
+      const danoEfetivo = personagem.receberDanoFisico(15);
+      expect(danoEfetivo).toBe(10);
+      expect(personagem.vidaAtual).toBe(80);
+    });
+
+    test('should not apply negative damage when armor is higher than damage', () => {
+      const danoEfetivo = personagem.receberDanoFisico(3);
+      expect(danoEfetivo).toBe(0);
+      expect(personagem.vidaAtual).toBe(90);
+    });
+
+    test('should not reduce life below 0', () => {
+      const danoEfetivo = personagem.receberDanoFisico(200);
+      expect(danoEfetivo).toBe(195);
+      expect(personagem.vidaAtual).toBe(0);
+    });
+
+    test('should handle zero damage', () => {
+      const danoEfetivo = personagem.receberDanoFisico(0);
+      expect(danoEfetivo).toBe(0);
+      expect(personagem.vidaAtual).toBe(90);
+    });
+  });
   describe('receberDanoMental', () => {
     test('should apply mental damage normally without specific fear', () => {
       const danoEfetivo = personagem.receberDanoMental(20);
