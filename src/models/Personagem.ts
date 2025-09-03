@@ -1,5 +1,5 @@
-import type { Atributos } from "../enuns/Atributos.js";
-import type { Medos } from "../enuns/Medos.js";
+import type { Atributos } from '../enuns/Atributos.js';
+import type { Medos } from '../enuns/Medos.js';
 
 export interface PersonagemProps {
   jogador: string;
@@ -120,7 +120,7 @@ export class Personagem {
     let danoEfetivo = dano;
 
     if (tipoMedo && this.props.medo.includes(tipoMedo)) {
-      danoEfetivo *= 10;
+      danoEfetivo *= 3;
     }
 
     this.props.sanidadeAtual = Math.max(
@@ -191,30 +191,30 @@ export class Personagem {
     const sanidadePercentual =
       (this.props.sanidadeAtual / this.props.sanidadeMaxima) * 100;
 
-    let estadoFisico = "Saudável";
+    let estadoFisico = 'Saudável';
     if (this.estaMorto()) {
-      estadoFisico = "Morto";
+      estadoFisico = 'Morto';
     } else if (vidaPercentual <= 10) {
-      estadoFisico = "Agonizante";
+      estadoFisico = 'Agonizante';
     } else if (vidaPercentual <= 25) {
-      estadoFisico = "Gravemente Ferido";
+      estadoFisico = 'Gravemente Ferido';
     } else if (vidaPercentual <= 50) {
-      estadoFisico = "Ferido";
+      estadoFisico = 'Ferido';
     } else if (vidaPercentual <= 75) {
-      estadoFisico = "Levemente Ferido";
+      estadoFisico = 'Levemente Ferido';
     }
 
-    let estadoMental = "Estável";
+    let estadoMental = 'Estável';
     if (this.estaInsano()) {
-      estadoMental = "Insano";
+      estadoMental = 'Insano';
     } else if (sanidadePercentual <= 10) {
-      estadoMental = "Psicótico";
+      estadoMental = 'Psicótico';
     } else if (sanidadePercentual <= 25) {
-      estadoMental = "Perturbado";
+      estadoMental = 'Perturbado';
     } else if (sanidadePercentual <= 50) {
-      estadoMental = "Abalado";
+      estadoMental = 'Abalado';
     } else if (sanidadePercentual <= 75) {
-      estadoMental = "Nervoso";
+      estadoMental = 'Nervoso';
     }
 
     return {
