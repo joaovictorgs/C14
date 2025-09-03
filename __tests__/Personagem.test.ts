@@ -34,6 +34,16 @@ describe('Personagem', () => {
     personagem = new Personagem(personagemProps);
   });
 
+  describe('estaInsano', () => {
+    test('should return false when character has sanity', () => {
+      expect(personagem.estaInsano()).toBe(false);
+    });
+
+    test('should return true when character has 0 sanity', () => {
+      personagem.receberDanoMental(100);
+      expect(personagem.estaInsano()).toBe(true);
+    });
+  });
   describe('temMedo', () => {
     test('should return true for fears character has', () => {
       expect(personagem.temMedo(Medos.NICTOFOBIA)).toBe(true);
