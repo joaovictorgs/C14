@@ -2,12 +2,17 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
+    "moduleResolution": "node",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": false,
+    "types": ["jest", "node"]
   },
   "include": [
     "src/**/*.test.ts",
     "src/**/*.spec.ts",
-    "src/__tests__/**/*.ts"
+    "src/__tests__/**/*.ts",
+    "__tests__/**/*.ts"
   ]
 }
