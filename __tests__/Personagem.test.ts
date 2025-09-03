@@ -33,6 +33,23 @@ describe('Personagem', () => {
     };
     personagem = new Personagem(personagemProps);
   });
+  describe('curarMana', () => {
+    test('should restore mana points', () => {
+      personagem.curarMana(15);
+      expect(personagem.manaAtual).toBe(95);
+    });
+
+    test('should not exceed maximum mana', () => {
+      personagem.curarMana(50);
+      expect(personagem.manaAtual).toBe(100);
+    });
+
+    test('should handle zero mana restoration', () => {
+      const manaAntes = personagem.manaAtual;
+      personagem.curarMana(0);
+      expect(personagem.manaAtual).toBe(manaAntes);
+    });
+  });
   describe('recuperarSanidade', () => {
     test('should restore sanity points', () => {
       personagem.recuperarSanidade(5);
