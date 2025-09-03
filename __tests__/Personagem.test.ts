@@ -33,6 +33,24 @@ describe('Personagem', () => {
     };
     personagem = new Personagem(personagemProps);
   });
+  describe('curarVida', () => {
+    test('should heal life points', () => {
+      personagem.receberDanoFisico(30);
+      personagem.curarVida(20);
+      expect(personagem.vidaAtual).toBe(85);
+    });
+
+    test('should not exceed maximum life', () => {
+      personagem.curarVida(50);
+      expect(personagem.vidaAtual).toBe(100);
+    });
+
+    test('should handle zero healing', () => {
+      const vidaAntes = personagem.vidaAtual;
+      personagem.curarVida(0);
+      expect(personagem.vidaAtual).toBe(vidaAntes);
+    });
+  });
   describe('curarMana', () => {
     test('should restore mana points', () => {
       personagem.curarMana(15);
