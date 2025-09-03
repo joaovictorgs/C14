@@ -33,6 +33,24 @@ describe('Personagem', () => {
     };
     personagem = new Personagem(personagemProps);
   });
+  describe('recuperarSanidade', () => {
+    test('should restore sanity points', () => {
+      personagem.recuperarSanidade(5);
+      expect(personagem.sanidadeAtual).toBe(75);
+    });
+
+    test('should not exceed maximum sanity', () => {
+      personagem.recuperarSanidade(50);
+      expect(personagem.sanidadeAtual).toBe(80);
+    });
+
+    test('should handle zero sanity restoration', () => {
+      const sanidadeAntes = personagem.sanidadeAtual;
+      personagem.recuperarSanidade(0);
+      expect(personagem.sanidadeAtual).toBe(sanidadeAntes);
+    });
+  });
+
   describe('estaMorto', () => {
     test('should return false when character has life', () => {
       expect(personagem.estaMorto()).toBe(false);
