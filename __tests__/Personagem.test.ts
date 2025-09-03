@@ -34,6 +34,18 @@ describe('Personagem', () => {
     personagem = new Personagem(personagemProps);
   });
 
+  describe('temMedo', () => {
+    test('should return true for fears character has', () => {
+      expect(personagem.temMedo(Medos.NICTOFOBIA)).toBe(true);
+      expect(personagem.temMedo(Medos.ARACNOFOBIA)).toBe(true);
+    });
+
+    test('should return false for fears character does not have', () => {
+      expect(personagem.temMedo(Medos.ACROFOBIA)).toBe(false);
+      expect(personagem.temMedo(Medos.CLAUSTROFOBIA)).toBe(false);
+    });
+  });
+
   describe('gastarMana', () => {
     test('should spend mana and return true when enough mana available', () => {
       const resultado = personagem.gastarMana(30);
