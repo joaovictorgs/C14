@@ -59,4 +59,34 @@ describe('Personagem', () => {
       expect(personagem.manaAtual).toBe(80);
     });
   });
+
+  describe('podeUsarHabilidade', () => {
+    test('should return true when character has enough mana and is alive and sane', () => {
+      expect(personagem.podeUsarHabilidade(50)).toBe(true);
+    });
+
+    test('should return false when not enough mana', () => {
+      expect(personagem.podeUsarHabilidade(100)).toBe(false);
+    });
+
+    test('should return false when character is dead', () => {
+      personagem.receberDanoFisico(200);
+      expect(personagem.podeUsarHabilidade(10)).toBe(false);
+    });
+
+    test('should return false when character is insane', () => {
+      personagem.receberDanoMental(100);
+      expect(personagem.podeUsarHabilidade(10)).toBe(false);
+    });
+
+    test('should return false when character is both dead and insane', () => {
+      personagem.receberDanoFisico(200);
+      personagem.receberDanoMental(100);
+      expect(personagem.podeUsarHabilidade(10)).toBe(false);
+    });
+
+    test('should handle zero mana cost', () => {
+      expect(personagem.podeUsarHabilidade(0)).toBe(true);
+    });
+  });
 });
