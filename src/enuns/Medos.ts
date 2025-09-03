@@ -1,0 +1,15 @@
+export enum Medos {
+  TALASSOFOBIA = 'talassofobia',
+  ARACNOFOBIA = 'aracnofobia',
+  OFIDIOFOBIA = 'ofidiofobia',
+  ACROFOBIA = 'acrofobia',
+  AGORAFOBIA = 'agorafobia',
+  CLAUSTROFOBIA = 'claustrofobia',
+  AEROFOBIA = 'aerofobia',
+  TRIPOFOBIA = 'tripofobia',
+  MISOFOBIA = 'misofobia',
+  NICTOFOBIA = 'nictofobia',
+  HEMOFOBIA = 'hemofobia',
+  CINOFOBIA = 'cinofobia',
+  TANATOFOBIA = 'tanatofobia',
+}
