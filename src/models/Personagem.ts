@@ -170,19 +170,12 @@ export class Personagem {
     vidaPercentual: number;
     manaPercentual: number;
     sanidadePercentual: number;
-    estado: string;
     estadoFisico: string;
     estadoMental: string;
   } {
     const vidaPercentual = (this.props.vidaAtual / this.props.vidaMaxima) * 100;
     const manaPercentual = (this.props.manaAtual / this.props.manaMaxima) * 100;
     const sanidadePercentual = (this.props.sanidadeAtual / this.props.sanidadeMaxima) * 100;
-
-    let estado = 'Normal';
-    if (this.estaMorto()) estado = 'Morto';
-    else if (this.estaInsano()) estado = 'Insano';
-    else if (vidaPercentual <= 25) estado = 'Crítico';
-    else if (sanidadePercentual <= 25) estado = 'Perturbado';
 
     let estadoFisico = 'Saudável';
     if (this.estaMorto()) {
@@ -214,7 +207,6 @@ export class Personagem {
       vidaPercentual,
       manaPercentual,
       sanidadePercentual,
-      estado,
       estadoFisico,
       estadoMental,
     };
