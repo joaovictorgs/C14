@@ -58,3 +58,12 @@ Segue a segunda alteração:
 
 Foi optado por mantér a segunda alteração, uma vez que ela já incluia todas a informação inicial do outro commit
 O conflito foi resolvido usando o fluxo de sugestão do vscode
+
+
+### 2º conflito dia 02/09
+
+Foi adicionado um multiplicador de dano mental de vezes 10 caso o personagem tomasse dano mental com um de seus medos, porém os testes não foram alterados juntos para acompanharem o valor,
+<img width="1014" height="789" alt="image" src="https://github.com/user-attachments/assets/d15bde65-b13c-4d63-902a-06967b40822f" />
+
+Após isso, foi-se analizado que a quantia de vezes 10 era muito absurda, logo foi-se optado apenas por um multiplicador de 3, e os testes foram atualizados, com os testes passando, o merge foi relizado
+<img width="1125" height="718" alt="image" src="https://github.com/user-attachments/assets/b55d6aaf-f895-4dee-a4a2-3caeebf653cb" />
