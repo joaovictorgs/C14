@@ -33,4 +33,30 @@ describe('Personagem', () => {
     };
     personagem = new Personagem(personagemProps);
   });
+
+  describe('gastarMana', () => {
+    test('should spend mana and return true when enough mana available', () => {
+      const resultado = personagem.gastarMana(30);
+      expect(resultado).toBe(true);
+      expect(personagem.manaAtual).toBe(50);
+    });
+
+    test('should not spend mana and return false when not enough mana', () => {
+      const resultado = personagem.gastarMana(100);
+      expect(resultado).toBe(false);
+      expect(personagem.manaAtual).toBe(80);
+    });
+
+    test('should spend exact mana amount available', () => {
+      const resultado = personagem.gastarMana(80);
+      expect(resultado).toBe(true);
+      expect(personagem.manaAtual).toBe(0);
+    });
+
+    test('should handle zero mana cost', () => {
+      const resultado = personagem.gastarMana(0);
+      expect(resultado).toBe(true);
+      expect(personagem.manaAtual).toBe(80);
+    });
+  });
 });
