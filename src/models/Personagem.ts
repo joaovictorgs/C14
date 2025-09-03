@@ -120,7 +120,7 @@ export class Personagem {
     let danoEfetivo = dano;
 
     if (tipoMedo && this.props.medo.includes(tipoMedo)) {
-      danoEfetivo *= 2;
+      danoEfetivo *= 10;
     }
 
     this.props.sanidadeAtual = Math.max(
