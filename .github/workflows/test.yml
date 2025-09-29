@@ -82,7 +82,7 @@ jobs:
 
       - name: Send notification email
         env:
-          RECIPIENT_EMAIL: ${{ secrets.PIPELINE_RECIPIENT }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
           TEST_RESULT: ${{ needs.tests.result }}
           BUILD_RESULT: ${{ needs.build.result }}
           WORKFLOW_STATUS: ${{ (needs.tests.result == 'success' && needs.build.result == 'success') && 'success' || 'failure' }}
