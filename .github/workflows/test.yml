@@ -34,7 +34,7 @@ jobs:
   build:
     name: Build (packaging)
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -90,4 +90,4 @@ jobs:
           GITHUB_WORKFLOW: ${{ github.workflow }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REF: ${{ github.ref }}
-        run: node dist/scripts/sendNotificationCli.ts
+        run: node dist/scripts/sendNotificationCli.js
