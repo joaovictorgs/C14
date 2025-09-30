@@ -34,7 +34,7 @@ async function main() {
   const html = `<pre>${lines.join('\n')}</pre>`;
 
   const { info, preview } = await mailer.send({ to: recipient, subject, text, html });
-  console.log('E-mail enviado:', (info as any).messageId || info);
+  console.log('E-mail enviado: ', (info as any).messageId || info);
   if (preview) console.log('Preview URL:', preview);
 }
 
