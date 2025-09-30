@@ -1,0 +1,97 @@
+name: CI Pipeline
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      - name: Run tests (CI report)
+        run: npm run test:ci
+      - name: Upload test report and coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: jest-report
+          path: |
+            jest-report.json
+            coverage/
+          if-no-files-found: warn
+          retention-days: 7
+
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      - name: Build project
+        run: npm run build
+      - name: Package artifacts
+        run: |
+          mkdir -p package
+          cp -R dist package/
+          tar -czf package.tar.gz package
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-package
+          path: package.tar.gz
+          retention-days: 7
+
+  notify:
+    name: notify
+    runs-on: ubuntu-latest
+    needs: [test]
+    if: ${{ needs.test.result == 'success' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+
+      - name: Notify by e-mail (run TS or JS)
+        env:
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          TEST_RESULT: ${{ needs.test.result }}
+          WORKFLOW_STATUS: ${{ job.status }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          GIT_SHA: ${{ github.sha }}
+          GIT_REF: ${{ github.ref }}
+        run: |
+          # tenta JS compilado; se não existir, roda o TS com tsx/ts-node
+          if [ -f "dist/scripts/sendNotificationCli.js" ]; then
+            node dist/scripts/sendNotificationCli.js
+          elif [ -f "src/scripts/sendNotificationCli.ts" ]; then
+            npx --yes tsx src/scripts/sendNotificationCli.ts \
+              || npx --yes ts-node src/scripts/sendNotificationCli.ts
+          else
+            echo "Notifier não encontrado (dist/ ou src/)."; exit 1
+          fi
