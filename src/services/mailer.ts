@@ -8,9 +8,7 @@ export interface MailOptions {
 }
 
 export class Mailer {
-  private transporter?: ReturnType<typeof nodemailer.createTransport>;
-
-  constructor() {}
+  public transporter?: ReturnType<typeof nodemailer.createTransport>;
 
   async init() {
     if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
@@ -25,6 +23,7 @@ export class Mailer {
       });
       (this.transporter as any).__transportInfo = { type: 'smtp', host: process.env.SMTP_HOST };
     } else {
+      // fallback pra Ethereal (útil em dev/PRs)
       const testAccount = await nodemailer.createTestAccount();
       this.transporter = nodemailer.createTransport({
         host: testAccount.smtp.host,
@@ -42,7 +41,7 @@ export class Mailer {
   async send(options: MailOptions) {
     if (!this.transporter) await this.init();
 
-    const info = await this.transporter.sendMail({
+    const info = await this.transporter!.sendMail({
       from: process.env.MAIL_FROM || 'ci-pipeline@example.com',
       to: options.to,
       subject: options.subject,
@@ -55,6 +54,14 @@ export class Mailer {
       : undefined;
 
     return { info, preview };
+  }
+
+  getTransportInfo() {
+    try {
+      return (this.transporter as any)?.__transportInfo ?? 'unknown';
+    } catch {
+      return 'unknown';
+    }
   }
 }
 

@@ -18,6 +18,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: System setup (runner)
+        run: ./scripts/setup.sh
+        shell: bash
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -31,11 +35,15 @@ jobs:
       - name: Run tests (CI report)
         run: npm run test:ci
 
-      - name: Upload test report
+      - name: Upload test report and coverage
         uses: actions/upload-artifact@v4
         with:
           name: jest-report
-          path: jest-report.json
+          path: |
+            jest-report.json
+            coverage/
+          if-no-files-found: warn
+          retention-days: 7
 
   build:
     name: Build (packaging)
@@ -43,6 +51,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: System setup (runner)
+        run: ./scripts/setup.sh
+        shell: bash
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -68,12 +80,14 @@ jobs:
         with:
           name: build-package
           path: package.tar.gz
+          retention-days: 7
 
   notify:
-    name: Notify when both succeed
+    name: Notify (always, with results)
     runs-on: ubuntu-latest
     needs: [run-tests, build]
-    if: ${{ needs.run-tests.result == 'success' && needs.build.result == 'success' }}
+    # Sempre roda para informar sucesso/falha (exigência do enunciado)
+    if: always()
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -86,12 +100,19 @@ jobs:
       - name: Install runtime dependencies
         run: npm ci
 
-      - name: Download build artifact
+      - name: Download build artifact (only if build succeeded)
+        if: ${{ needs.build.result == 'success' }}
         uses: actions/download-artifact@v4
         with:
           name: build-package
 
-      - name: Extract package and run notifier
+      - name: Extract package
+        if: ${{ needs.build.result == 'success' }}
+        run: |
+          echo "Extracting package.tar.gz"
+          mkdir -p package && tar -xzf package.tar.gz -C package
+
+      - name: Notify by e-mail
         env:
           RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
@@ -102,8 +123,15 @@ jobs:
           TEST_RESULT: ${{ needs.run-tests.result }}
           BUILD_RESULT: ${{ needs.build.result }}
           WORKFLOW_STATUS: ${{ job.status }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          GIT_SHA: ${{ github.sha }}
+          GIT_REF: ${{ github.ref }}
         run: |
-          echo "Extracting package.tar.gz"
-          mkdir -p package && tar -xzf package.tar.gz -C package
-          echo "Running notifier from package/dist/scripts/sendNotificationCli.js"
-          node package/dist/scripts/sendNotificationCli.js
+          # Se o build tiver sucesso e o pacote existir, roda o CLI do pacote;
+          # caso contrário, roda o CLI direto do repositório (usa node_modules instalados aqui).
+          if [ -f "package/dist/scripts/sendNotificationCli.js" ]; then
+            node package/dist/scripts/sendNotificationCli.js
+          else
+            # fallback (caso o build tenha falhado, mas queremos avisar mesmo assim)
+            node dist/scripts/sendNotificationCli.js || node src/scripts/sendNotificationCli.js
+          fi
