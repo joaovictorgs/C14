@@ -71,3 +71,5 @@ Após isso, foi-se analizado que a quantia de vezes 10 era muito absurda, logo f
 
 ### 3º Comprovação do email do pipeline retornando ok
 <img width="1796" height="815" alt="image" src="https://github.com/user-attachments/assets/57b2c2a7-b4af-458c-8ed6-ba03f0e36d28" />
+
+### 4º Alteração no estilo do pipeline, ao invés de realizar o teste + build em paralelo e depois fazer o notify, foi-se optado por fazer o teste depois build e notify pelo motivo de faze sentido apenas rodar o build e o notify se estiver correto o teste
