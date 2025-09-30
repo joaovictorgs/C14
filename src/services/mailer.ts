@@ -23,6 +23,7 @@ export class Mailer {
           pass: process.env.SMTP_PASS,
         },
       });
+      (this.transporter as any).__transportInfo = { type: 'smtp', host: process.env.SMTP_HOST };
     } else {
       const testAccount = await nodemailer.createTestAccount();
       this.transporter = nodemailer.createTransport({
@@ -34,6 +35,7 @@ export class Mailer {
           pass: testAccount.pass,
         },
       });
+      (this.transporter as any).__transportInfo = { type: 'ethereal', user: testAccount.user };
     }
   }
 

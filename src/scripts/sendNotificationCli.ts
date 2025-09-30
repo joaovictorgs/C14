@@ -14,6 +14,15 @@ async function main() {
   const mailer = new Mailer();
   await mailer.init();
 
+  try {
+    const transportInfo = (mailer as any).transporter?._options
+      ? { type: 'smtp', host: (mailer as any).transporter._options.host }
+      : (mailer as any).transporter?.__transportInfo || null;
+    console.log('Transport info:', transportInfo);
+  } catch (e) {
+    console.log('Transport info: unknown');
+  }
+
   const subject = `Pipeline result: ${workflowStatus}`;
   const text = `Tests: ${testResult}\nBuild: ${buildResult}\nStatus: ${workflowStatus}`;
 
