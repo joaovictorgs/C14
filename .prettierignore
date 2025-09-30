@@ -1,0 +1,8 @@
+node_modules
+dist
+package
+package.tar.gz
+coverage
+.git
+.github
+/*.png

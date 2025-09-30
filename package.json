@@ -8,7 +8,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:ci": "jest --runInBand --json --outputFile=jest-report.json"
+    "test:ci": "jest --runInBand --json --outputFile=jest-report.json",
+    "format": "prettier --write \"src/**/*.{ts,js,json,md}\" \"__tests__/**/*.ts\" \"*.md\"",
+    "format:check": "prettier --check \"src/**/*.{ts,js,json,md}\" \"__tests__/**/*.ts\" \"*.md\""
   },
   "keywords": [],
   "author": "",
@@ -19,7 +21,8 @@
     "@types/node": "^24.2.1",
     "jest": "^30.1.2",
     "ts-jest": "^29.4.1",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "prettier": "^2.8.8"
   },
   "dependencies": {
     "@fastify/cors": "^11.1.0",
