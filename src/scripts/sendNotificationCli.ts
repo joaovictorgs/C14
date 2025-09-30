@@ -28,7 +28,7 @@ async function main() {
 
   const { info, preview } = await mailer.send({ to: recipient, subject, text });
   console.log('Sent:', info.messageId || info);
-  if (preview) console.log('Preview URL:', preview);
+  if (preview) console.log('Preview URL: ', preview);
 }
 
 main().catch((err) => {
