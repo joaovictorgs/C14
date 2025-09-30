@@ -1,5 +1,5 @@
-import fastify from "fastify";
-import fastifyCors from "@fastify/cors";
+import fastify from 'fastify';
+import fastifyCors from '@fastify/cors';
 
 export function buildApp() {
   const app = fastify();
