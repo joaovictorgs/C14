@@ -67,3 +67,7 @@ Foi adicionado um multiplicador de dano mental de vezes 10 caso o personagem tom
 
 Após isso, foi-se analizado que a quantia de vezes 10 era muito absurda, logo foi-se optado apenas por um multiplicador de 3, e os testes foram atualizados, com os testes passando, o merge foi relizado
 <img width="1125" height="718" alt="image" src="https://github.com/user-attachments/assets/b55d6aaf-f895-4dee-a4a2-3caeebf653cb" />
+
+
+### 3º Comprovação do email do pipeline retornando ok
+<img width="1796" height="815" alt="image" src="https://github.com/user-attachments/assets/57b2c2a7-b4af-458c-8ed6-ba03f0e36d28" />
