@@ -31,7 +31,7 @@ const personagemTeste = new Personagem({
   armadura: 5,
 });
 
-console.log('1. INFORMAÇÕES BÁSICAS DO PERSONAGEM:');
+console.log('1. INFORMAÇÕES BÁSICAS DO PERSONAGEM: ');
 console.log(`Nome: ${personagemTeste.nome}`);
 console.log(`Jogador: ${personagemTeste.jogador}`);
 console.log(`Classe: ${personagemTeste.tipoClasse}`);
