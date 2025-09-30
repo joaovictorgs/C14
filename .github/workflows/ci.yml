@@ -70,7 +70,7 @@ jobs:
           path: package.tar.gz
 
   notify:
-    name: Notify when both workflows succeed
+    name: Notify when both succeed
     runs-on: ubuntu-latest
     needs: [run-tests, build]
     if: ${{ needs.run-tests.result == 'success' && needs.build.result == 'success' }}
